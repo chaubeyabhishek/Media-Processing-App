@@ -1,0 +1,21 @@
+.google-icon-btn {
+  width: 45px;
+  height: 45px;
+  margin-top: 15px;
+  border-radius: 50%;
+  border: 1px solid #ddd;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.google-icon-btn img {
+  width: 22px;
+}
+
+.google-icon-btn:hover {
+  box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+}

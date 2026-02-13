@@ -1,4 +1,4 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -200,6 +200,7 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
+  gap: 20px;
   align-items: center;
   background:
     radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 40%),
@@ -210,9 +211,9 @@
 
 .login-card {
   width: 100%;
-  max-width: 420px;
-  padding: 40px;
-  border-radius: 20px;
+  max-width: 320px;
+  padding: 24px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -220,34 +221,55 @@
   color: #fff;
 }
 
-.login-card h2 {
-  font-size: 2rem;
+.auth-logo {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  cursor: pointer;
+  background: linear-gradient(90deg, #c084fc, #f472b6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+  z-index: 100;
+}
+
+.login-card h2,
+.signup-card h2 {
+  font-size: 1.5rem;
   margin-bottom: 8px;
 }
 
-.login-card p {
+.login-card p,
+.signup-card p {
   color: #cbd5f5;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
 }
 
-.login-card input {
+.login-card input,
+.signup-card input {
   width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-  border-radius: 10px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+  border-radius: 8px;
   border: none;
   background: rgba(255, 255, 255, 0.12);
   color: #fff;
-  font-size: 1rem;
+  font-size: 0.93rem;
 }
 
-.login-card input::placeholder {
+.login-card input::placeholder,
+.signup-card input::placeholder {
   color: #94a3b8;
 }
 
-.login-card button {
+.login-card button,
+.signup-card button {
   width: 100%;
-  padding: 14px;
+  padding: 10px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
@@ -255,6 +277,7 @@
   background: linear-gradient(135deg, #a855f7, #ec4899);
   color: white;
   transition: all 0.3s ease;
+  font-size: 0.93rem;
 }
 
 .login-card button:hover {
@@ -263,8 +286,8 @@
 }
 
 .footer-text {
-  margin-top: 20px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 0.75rem;
 }
 
 .footer-text span {
@@ -299,9 +322,9 @@
 
 .signup-card {
   width: 100%;
-  max-width: 460px;
-  padding: 40px;
-  border-radius: 20px;
+  max-width: 320px;
+  padding: 24px;
+  border-radius: 16px;
   background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(16px);
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -309,46 +332,35 @@
   color: #fff;
 }
 
-.signup-card h2 {
-  font-size: 2rem;
-  margin-bottom: 8px;
-}
-
-.signup-card p {
-  color: #cbd5f5;
-  margin-bottom: 24px;
-}
-
-.signup-card input {
-  width: 100%;
-  padding: 14px 16px;
-  margin-bottom: 16px;
-  border-radius: 10px;
-  border: none;
-  background: rgba(255, 255, 255, 0.12);
-  color: #fff;
-  font-size: 1rem;
-}
-
-.signup-card input::placeholder {
-  color: #94a3b8;
+.btn-google {
+  background: white !important;
+  color: #1f2937 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 8px;
 }
 
 .name-row {
   display: flex;
-  gap: 12px;
+  gap: 8px;
 }
 
 .signup-card button {
   width: 100%;
-  padding: 14px;
+  padding: 8px;
   border-radius: 999px;
   border: none;
   cursor: pointer;
+  justify-content: center;
+  align-items: center;
+
   font-weight: 600;
   background: linear-gradient(135deg, #a855f7, #ec4899);
   color: white;
   transition: all 0.3s ease;
+  font-size: 0.85rem;
 }
 
 .signup-card button:hover {
@@ -356,9 +368,11 @@
   transform: translateY(-2px);
 }
 
+
+
 .footer-text {
-  margin-top: 20px;
-  font-size: 0.9rem;
+  margin-top: 12px;
+  font-size: 0.75rem;
 }
 
 .footer-text span {

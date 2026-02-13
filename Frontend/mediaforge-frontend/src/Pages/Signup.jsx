@@ -46,6 +46,9 @@ const Signup = () => {
 
   return (
     <div className="signup-wrapper">
+      <div className="auth-logo" onClick={() => navigate("/")}>
+        MediaForage
+      </div>
       <div className="signup-card">
         <h2>Create Account 🚀</h2>
         <p>Join MediaForge and start processing images</p>
@@ -94,13 +97,21 @@ const Signup = () => {
           <button type="submit" disabled={loading}>
             {loading ? "Creating account..." : "Sign Up"}
           </button>
+
+          <button type="button" className="btn-google">
+            Google
+          </button>
         </form>
+
 
         <p className="footer-text">
           Already have an account?{" "}
           <span onClick={() => navigate("/login")}>Login</span>
         </p>
       </div>
+
+
+
     </div>
   );
 };
