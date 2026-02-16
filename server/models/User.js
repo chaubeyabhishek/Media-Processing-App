@@ -17,10 +17,14 @@ const userSchema = new mongoose.Schema(
 
     password: {
       type: String,
-      required: true,
+      required: function () {
+        return !this.googleId;
+      },
     },
 
-    
+    googleId: String,
+    picture: String,
+
     subscription: {
       type: String,
       enum: ["FREE", "PRO"],
@@ -32,13 +36,9 @@ const userSchema = new mongoose.Schema(
       default: 0,
     },
 
-    lastUploadDate: {
-      type: Date,
-    },
+    lastUploadDate: Date,
   },
-  {
-    timestamps: true, 
-  }
+  { timestamps: true }
 );
 
 module.exports = mongoose.model("User", userSchema);
