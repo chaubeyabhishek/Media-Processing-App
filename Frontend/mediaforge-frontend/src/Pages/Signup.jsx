@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
 
 
 const Signup = () => {
@@ -44,13 +45,35 @@ const Signup = () => {
     }
   };
 
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      const res = await axios.post(
+        "http://localhost:4000/api/v1/auth/google",
+        {
+          token: credentialResponse.credential,
+        }
+      );
+
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+
+      navigate("/Dashboard");
+
+    } catch (err) {
+      setError("Google Login Failed");
+    }
+  };
+
+
+
+
   return (
     <div className="signup-wrapper">
       <div className="auth-logo" onClick={() => navigate("/")}>
         MediaForage
       </div>
       <div className="signup-card">
-        <h2>Create Account 🚀</h2>
+        <h2>Create Account</h2>
         <p>Join MediaForge and start processing images</p>
 
         {error && <div className="error">{error}</div>}
@@ -98,9 +121,16 @@ const Signup = () => {
             {loading ? "Creating account..." : "Sign Up"}
           </button>
 
-          <button type="button" className="btn-google">
-            Google
-          </button>
+         <div style={{ marginTop: "20px", width: "100%", display: "flex", justifyContent: "center" }}>
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => setError("Google Login Failed")}
+              theme="filled_blue"
+              shape="pill"
+              text="continue_with"
+              width="272"
+              />
+        </div>
         </form>
 
 
