@@ -1,0 +1,76 @@
+/* Page background */
+.cropPage {
+  min-height: 100vh;
+  background: #0f172a;
+  color: white;
+}
+
+/* Main container */
+.cropContainer {
+  max-width: 900px;
+  margin: auto;
+  padding: 40px 20px;
+  text-align: center;
+}
+
+/* Title */
+.cropTitle {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* File input */
+.fileInput {
+  margin: 20px 0;
+  padding: 10px;
+  background: #1e293b;
+  color: white;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  cursor: pointer;
+}
+
+/* ReactCrop wrapper — controls overall image size */
+.ReactCrop {
+  max-width: 520px;      /* 👈 IMAGE SIZE CONTROL HERE */
+  margin: 25px auto;
+  display: block;
+}
+
+/* Image inside crop */
+.ReactCrop img {
+  width: 100%;
+  height: auto;
+  max-height: 360px;     /* 👈 HEIGHT LIMIT */
+  object-fit: contain;
+  border-radius: 12px;
+}
+
+/* Download button */
+.downloadBtn {
+  margin-top: 25px;
+  padding: 12px 26px;
+  font-size: 16px;
+  background: #2563eb;
+  border: none;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.downloadBtn:hover {
+  background: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Crop border styling */
+.ReactCrop__crop-selection {
+  border: 2px solid #3b82f6 !important;
+}
+
+/* Optional: dark overlay feel nicer */
+.ReactCrop__drag-handle {
+  background-color: #3b82f6 !important;
+}

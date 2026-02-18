@@ -14,7 +14,7 @@ const Navbar = () => {
         </div>
 
         <div className="mf-navLinks">
-          <span onClick={() => navigate("/")}>Home</span>
+          <span onClick={() => navigate("/Dashboard")}>Dashboard</span>
           <span onClick={() => navigate("/convert")}>Convert</span>
           <span onClick={() => navigate("/crop")}>Crop</span>
           <span onClick={() => navigate("/compress")}>Compress</span>

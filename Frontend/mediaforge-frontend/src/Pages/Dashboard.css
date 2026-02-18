@@ -1,89 +1,140 @@
-.dashboard-wrapper {
-  min-height: 100vh;
-  padding: 120px 24px;
-  background:
-    radial-gradient(circle at top left, rgba(168, 85, 247, 0.25), transparent 40%),
-    radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.25), transparent 40%),
-    linear-gradient(135deg, #020617, #0f172a);
-  color: #fff;
-  font-family: "Inter", system-ui, sans-serif;
+/* ===== NAVBAR ===== */
+.dashNavbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  backdrop-filter: blur(12px);
+  background: rgba(2,6,23,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  z-index: 50;
 }
 
-.dashboard-title {
-  font-size: 2.2rem;
-  margin-bottom: 32px;
-  background: linear-gradient(90deg, #c084fc, #f472b6);
+.dashNavInner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap; /* ✅ prevents links from disappearing */
+}
+
+.dashLogo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  cursor: pointer;
+  background: linear-gradient(90deg,#c084fc,#f472b6);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.dashboard-card {
-  max-width: 520px;
-  margin-bottom: 28px;
-  padding: 24px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.06);
-  backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-}
-
-.badge {
-  padding: 4px 12px;
-  border-radius: 999px;
-  background: linear-gradient(135deg, #a855f7, #ec4899);
-  font-size: 0.8rem;
-}
-
-.quota-text {
-  margin: 12px 0;
-  color: #cbd5f5;
-}
-
-.quota-bar {
-  height: 10px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 999px;
-  overflow: hidden;
-}
-
-.quota-fill {
-  height: 100%;
-  background: linear-gradient(90deg, #a855f7, #ec4899);
-}
-
-.quota-warning {
-  margin-top: 12px;
-  color: #fecaca;
-}
-
-.dashboard-actions {
-  margin-top: 40px;
+.dashNavLinks {
   display: flex;
   gap: 20px;
-  flex-wrap: wrap;
-}
-
-.dashboard-btn {
-  padding: 16px 36px;
-  border-radius: 999px;
-  border: none;
-  font-weight: 600;
+  color: #cbd5f5;
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
-.dashboard-btn.primary {
-  background: linear-gradient(135deg, #a855f7, #ec4899);
+.dashNavLinks span:hover {
   color: white;
 }
 
-.dashboard-btn.primary:disabled {
-  background: rgba(255, 255, 255, 0.2);
-  cursor: not-allowed;
+.dashLogoutBtn {
+  padding: 8px 16px;
+  border-radius: 999px;
+  border: 1px solid rgba(239,68,68,0.4);
+  background: rgba(239,68,68,0.25);
+  color: #fecaca;
+  cursor: pointer;
 }
 
-.dashboard-btn.secondary {
-  background: rgba(255, 255, 255, 0.08);
-  color: #cbd5f5;
-  border: 1px solid rgba(255, 255, 255, 0.2);
+.dashLogoutBtn:hover {
+  background: rgba(239,68,68,0.4);
+}
+
+/* ===== MAIN WRAPPER ===== */
+.dashWrapper {
+  min-height: 100vh;
+  padding: 85px 24px 40px; /* ✅ correct top gap for fixed navbar */
+  background:
+    radial-gradient(circle at top left, rgba(168,85,247,0.25), transparent 40%),
+    radial-gradient(circle at bottom right, rgba(236,72,153,0.25), transparent 40%),
+    linear-gradient(135deg, #020617, #0f172a);
+  color: #fff;
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* ===== TITLE ===== */
+.dashTitle {
+  font-size: 2.2rem;
+  margin-bottom: 32px;
+  background: linear-gradient(90deg,#c084fc,#f472b6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* ===== GRID ===== */
+.dashGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  max-width: 1100px;
+}
+
+/* ===== CARD ===== */
+.dashCard {
+  padding: 24px;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  margin-bottom: 24px;
+}
+
+/* ===== BADGE ===== */
+.dashBadge {
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg,#a855f7,#ec4899);
+  font-size: 0.8rem;
+}
+
+/* ===== PROGRESS BAR ===== */
+.dashBar {
+  height: 10px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.dashBarFill {
+  height: 100%;
+  background: linear-gradient(90deg,#a855f7,#ec4899);
+}
+
+/* ===== LIMIT TEXT ===== */
+.dashLimitText {
+  color: #fecaca;
+  margin-top: 10px;
+}
+
+/* ===== MOBILE RESPONSIVE ===== */
+@media (max-width: 900px) {
+
+  .dashGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .dashNavLinks {
+    display: flex;        /* ✅ keep links visible */
+    flex-wrap: wrap;      /* wrap instead of hide */
+    gap: 12px;
+    font-size: 14px;
+    margin-top: 10px;
+  }
+
+  .dashLogoutBtn {
+    margin-top: 10px;
+  }
+
 }
