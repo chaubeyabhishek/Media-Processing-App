@@ -3,6 +3,7 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+const validator = require("validator");
 
 exports.signup = async (req, res) => {
   try {
@@ -15,6 +16,32 @@ exports.signup = async (req, res) => {
       });
     }
 
+    
+
+    if(!validator.isEmail(email)){
+      return res.status(400).json({
+        success:false,
+        message:"Please provide a valid email"
+      })
+    }
+
+    if (
+      !validator.isStrongPassword(password, {
+        minLength: 6,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 0,
+      })
+    ) {
+      return res.status(400).json({
+        success: false,
+        message:
+          "Password must be at least 6 characters and include uppercase, lowercase, and a number",
+      });
+    }
+
+
     const existing = await User.findOne({ email });
     if (existing) {
       return res.status(400).json({
@@ -26,7 +53,7 @@ exports.signup = async (req, res) => {
     const hashed = await bcrypt.hash(password, 10);
 
     await User.create({
-      name: `${firstName} ${lastName}`, // 🔥 FIX HERE
+      name: `${firstName} ${lastName}`, 
       email,
       password: hashed,
     });
@@ -36,7 +63,7 @@ exports.signup = async (req, res) => {
       message: "Signup successful",
     });
   } catch (err) {
-    console.error("SIGNUP ERROR 👉", err); // 👈 add this
+    console.error("SIGNUP ERROR 👉", err); 
     return res.status(500).json({
       success: false,
       message: "Signup failed",
@@ -57,6 +84,7 @@ exports.login = async (req, res) => {
     }
 
     const user = await User.findOne({ email }).select("+password");
+    
     if (!user) {
       return res.status(400).json({
         success: false,

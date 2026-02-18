@@ -5,9 +5,12 @@ import Signup from "./Pages/Signup";
 import Pricing from "./Pages/Pricing";
 import Dashboard from "./Pages/Dashboard";
 import Compress from "./Pages/compress";
+import Crop from "./Pages/crop";
+import Convert from "./Pages/convert";
 function App() {
   return (
       <div>
+
       <Routes>
         <Route path="/" element={<ImageProcessorLanding />} />
         <Route path="/login" element={<Login />} />
@@ -15,6 +18,8 @@ function App() {
         <Route path="/pricing" element={<Pricing/>}></Route>
         <Route path="/Dashboard" element={<Dashboard/>}></Route>
         <Route path="/compress" element={<Compress/>}></Route>
+        <Route path="/crop" element={<Crop/>}></Route>
+        <Route path="/convert" element={<Convert/>}></Route>
       </Routes>
       </div>
 

@@ -36,9 +36,11 @@ const Signup = () => {
         formData
       );
 
-      // Signup success → Login page
+      // Signup success → Login page  
       navigate("/login");
     } catch (err) {
+      console.log(err.response);   // 👈 add this
+      console.log(err.message);
       setError(err.response?.data?.message || "Signup failed");
     } finally {
       setLoading(false);

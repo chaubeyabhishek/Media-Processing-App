@@ -80,7 +80,7 @@ const Compress = () => {
           </div>
 
           <div className="nav-links">
-            <span onClick={() => navigate("/resize")}>Resize</span>
+            <span onClick={() => navigate("/Dashboard")}>Dashboard</span>
             <span onClick={() => navigate("/convert")}>Convert</span>
             <span onClick={() => navigate("/crop")}>Crop</span>
             <span className="active">Compress</span>

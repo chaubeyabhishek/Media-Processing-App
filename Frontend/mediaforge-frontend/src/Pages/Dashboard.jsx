@@ -98,7 +98,7 @@ const Dashboard = () => {
           </div>
 
           <div style={styles.navLinks}>
-            <span onClick={() => navigate("/login")}>Resize</span>
+            <span onClick={() => navigate("/")}>Home</span>
             <span onClick={() => navigate("/convert")}>Convert</span>
             <span onClick={() => navigate("/crop")}>Crop</span>
             <span onClick={() => navigate("/compress")}>Compress</span>

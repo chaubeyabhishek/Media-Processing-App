@@ -1,0 +1,43 @@
+.mf-navbar {
+  width: 100%;
+  height: 64px;
+  background: #0f172a;
+  border-bottom: 1px solid #1e293b;
+  position: sticky;
+  top: 0;
+  z-index: 9999;
+}
+
+.mf-navInner {
+  max-width: 1200px;
+  margin: auto;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mf-logo {
+  color: #38bdf8;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+}
+
+.mf-navLinks {
+  display: flex;
+  gap: 28px;
+}
+
+.mf-navLinks span {
+  color: #e2e8f0;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.mf-navLinks span:hover {
+  color: #38bdf8;
+}

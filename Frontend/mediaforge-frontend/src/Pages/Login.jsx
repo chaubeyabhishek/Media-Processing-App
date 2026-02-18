@@ -74,7 +74,7 @@ const Login = () => {
       </div>
 
       <div className="login-card">
-        <h2>Sign in</h2>
+        <h2>Log in</h2>
         <p>Login to your MediaForge account</p>
 
         {error && <div className="error">{error}</div>}
