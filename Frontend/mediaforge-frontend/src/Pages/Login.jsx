@@ -3,6 +3,9 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 
+// ✅ VERY IMPORTANT (cookie send karega)
+axios.defaults.withCredentials = true;
+
 const Login = () => {
   const navigate = useNavigate();
 
@@ -14,7 +17,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  // ---------------- Normal Login ----------------
+  // ----------- input change -----------
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -22,6 +25,7 @@ const Login = () => {
     });
   };
 
+  // ----------- Normal Login -----------
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -29,15 +33,13 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const res = await axios.post(
+      await axios.post(
         "http://localhost:4000/api/v1/auth/login",
-        formData
+        formData,
+        { withCredentials: true }   // ✅ cookie receive
       );
 
-      // Save token & user
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-
+      // ❌ no localStorage needed (cookie handles login)
       navigate("/Dashboard");
 
     } catch (err) {
@@ -47,18 +49,15 @@ const Login = () => {
     }
   };
 
-  // ---------------- Google Login ----------------
+  // ----------- Google Login -----------
   const handleGoogleSuccess = async (credentialResponse) => {
     try {
-      const res = await axios.post(
-        "http://localhost:4000/api/v1/auth/google",
-        {
-          token: credentialResponse.credential,
-        }
-      );
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+      await axios.post(
+        "http://localhost:4000/api/v1/auth/google",
+        { token: credentialResponse.credential },
+        { withCredentials: true }   // ✅ cookie receive
+      );
 
       navigate("/Dashboard");
 
@@ -103,7 +102,12 @@ const Login = () => {
           </button>
 
           {/* Google Login */}
-          <div style={{ marginTop: "20px", width: "100%", display: "flex", justifyContent: "center" }}>
+          <div style={{
+            marginTop: "20px",
+            width: "100%",
+            display: "flex",
+            justifyContent: "center"
+          }}>
             <GoogleLogin
               onSuccess={handleGoogleSuccess}
               onError={() => setError("Google Login Failed")}

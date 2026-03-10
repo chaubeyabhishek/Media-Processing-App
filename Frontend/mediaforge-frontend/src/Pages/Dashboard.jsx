@@ -13,37 +13,38 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+// ✅ ensure cookies always sent
+axios.defaults.withCredentials = true;
+
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
-    if (!token) {
-      navigate("/login");
-      return;
-    }
 
     const fetchUser = async () => {
       try {
+
         const res = await axios.get(
           "http://localhost:4000/api/v1/auth/me",
-          { headers: { Authorization: `Bearer ${token}` } }
+          { withCredentials: true }   // ✅ cookie sent automatically
         );
+
         setUser(res.data);
+
       } catch (error) {
         console.error("Dashboard fetch error 👉", error);
-        localStorage.removeItem("token");
-        navigate("/login");
+        navigate("/login");   // cookie invalid → login page
       } finally {
         setLoading(false);
       }
     };
 
     fetchUser();
-  }, [navigate, token]);
+
+  }, [navigate]);
 
   if (loading || !user) {
     return (
@@ -64,22 +65,22 @@ const Dashboard = () => {
 
   const handleLogout = async () => {
     try {
+
       await axios.post(
         "http://localhost:4000/api/v1/auth/logout",
         {},
-        { headers: { Authorization: `Bearer ${token}` } }
+        { withCredentials: true }   // ✅ cookie sent
       );
+
     } catch (error) {
       console.error("Logout error", error);
     } finally {
-      localStorage.removeItem("token");
       navigate("/login");
     }
   };
 
   return (
     <>
-      {/* NAVBAR */}
       <nav className="dashNavbar">
         <div className="dashNavInner">
           <div className="dashLogo" onClick={() => navigate("/dashboard")}>
@@ -100,7 +101,6 @@ const Dashboard = () => {
         </div>
       </nav>
 
-      {/* CONTENT */}
       <div className="dashWrapper">
 
         <h2 className="dashTitle">Dashboard</h2>

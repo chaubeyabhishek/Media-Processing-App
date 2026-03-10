@@ -16,31 +16,26 @@ exports.signup = async (req, res) => {
       });
     }
 
-    
-
-    if(!validator.isEmail(email)){
+    if (!validator.isEmail(email)) {
       return res.status(400).json({
-        success:false,
-        message:"Please provide a valid email"
-      })
+        success: false,
+        message: "Please provide a valid email",
+      });
     }
 
-    if (
-      !validator.isStrongPassword(password, {
-        minLength: 6,
-        minLowercase: 1,
-        minUppercase: 1,
-        minNumbers: 1,
-        minSymbols: 0,
-      })
-    ) {
+    if (!validator.isStrongPassword(password, {
+      minLength: 6,
+      minLowercase: 1,
+      minUppercase: 1,
+      minNumbers: 1,
+      minSymbols: 0,
+    })) {
       return res.status(400).json({
         success: false,
         message:
           "Password must be at least 6 characters and include uppercase, lowercase, and a number",
       });
     }
-
 
     const existing = await User.findOne({ email });
     if (existing) {
@@ -52,26 +47,46 @@ exports.signup = async (req, res) => {
 
     const hashed = await bcrypt.hash(password, 10);
 
-    await User.create({
-      name: `${firstName} ${lastName}`, 
+    // ✅ create user
+    const user = await User.create({
+      name: `${firstName} ${lastName}`,
       email,
       password: hashed,
+    });
+
+    // ✅ generate token (10 hours)
+    const token = jwt.sign(
+      { id: user._id, email: user.email },
+      process.env.JWT_SECRET,
+      { expiresIn: "10h" }
+    );
+
+    // ✅ save token in cookie
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 10 * 60 * 60 * 1000, // 10h
+      sameSite: "lax",
+      secure: false, // true in production https
     });
 
     return res.status(201).json({
       success: true,
       message: "Signup successful",
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+      },
     });
+
   } catch (err) {
-    console.error("SIGNUP ERROR 👉", err); 
+    console.error("SIGNUP ERROR 👉", err);
     return res.status(500).json({
       success: false,
       message: "Signup failed",
     });
   }
 };
-
-
 exports.login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -84,7 +99,7 @@ exports.login = async (req, res) => {
     }
 
     const user = await User.findOne({ email }).select("+password");
-    
+
     if (!user) {
       return res.status(400).json({
         success: false,
@@ -100,31 +115,39 @@ exports.login = async (req, res) => {
       });
     }
 
+    
     const token = jwt.sign(
       { id: user._id, email: user.email },
       process.env.JWT_SECRET,
-      { expiresIn: "24h" }
+      { expiresIn: "10h" }
     );
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      maxAge: 10 * 60 * 60 * 1000, 
+      sameSite: "lax",
+      secure: false, 
+    });
 
     return res.status(200).json({
       success: true,
-      token,
+      message: "Login success",
       user: {
         id: user._id,
-        name: user.name,          
+        name: user.name,
         email: user.email,
         subscription: user.subscription,
       },
     });
+
   } catch (err) {
-    console.error("LOGIN ERROR 👉", err); // 👈 always log
+    console.error("LOGIN ERROR 👉", err);
     return res.status(500).json({
       success: false,
       message: "Login failed",
     });
   }
 };
-
 
 exports.googleAuth = async (req, res) => {
   try {
